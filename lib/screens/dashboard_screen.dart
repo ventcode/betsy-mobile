@@ -1,10 +1,11 @@
-import 'package:betsy_mobile/models/challange.dart';
+import 'package:betsy_mobile/models/challenge.dart';
 import 'package:betsy_mobile/models/user.dart';
 import 'package:flutter/material.dart';
 
-final mockedListOfChallanges = [
+final mockedListOfChallenges = [
   {
-    "challanger": {
+    "id": "1",
+    "challenger": {
       "name": "Kuba",
       "surname": "Szopa",
       "profileImageUrl": "img"
@@ -18,7 +19,8 @@ final mockedListOfChallanges = [
     "status": "pending"
   },
   {
-    "challanger": {
+    "id": "2",
+    "challenger": {
       "name": "Kuba",
       "surname": "Szopa",
       "profileImageUrl": "img"
@@ -29,10 +31,11 @@ final mockedListOfChallanges = [
       "profileImageUrl": "img"
     },
     "date": "21-01-2024",
-    "status": "pending"
+    "status": "accepted"
   },
   {
-    "challanger": {
+    "id": "3",
+    "challenger": {
       "name": "Kuba",
       "surname": "Szopa",
       "profileImageUrl": "img"
@@ -43,7 +46,7 @@ final mockedListOfChallanges = [
       "profileImageUrl": "img"
     },
     "date": "21-01-2024",
-    "status": "pending"
+    "status": "done"
   },
 ] as List<dynamic>;
 
@@ -55,12 +58,13 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final mockedList = mockedListOfChallanges
-      .map((listElement) => Challange(
-          challanger: User(
-              name: listElement["challanger"]["name"],
-              surname: listElement["challanger"]["surname"],
-              profileImageUrl: listElement["challanger"]["profileImageUrl"]),
+  final mockedList = mockedListOfChallenges
+      .map((listElement) => Challenge(
+          id: listElement["id"],
+          challenger: User(
+              name: listElement["challenger"]["name"],
+              surname: listElement["challenger"]["surname"],
+              profileImageUrl: listElement["challenger"]["profileImageUrl"]),
           opponent: User(
               name: listElement["opponent"]["name"],
               surname: listElement["opponent"]["surname"],
@@ -76,16 +80,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
+        actions: <Widget>[
+          IconButton(onPressed: () {}, icon: const Icon(Icons.emoji_people))
+        ],
+        bottomOpacity: 0.5,
+        elevation: 6.0,
+        scrolledUnderElevation: 0.4,
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: const Text("New bet!"),
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.pushNamed(context, "/new-challenge");
+        },
       ),
       body: Center(
         child: ListView.builder(
           itemCount: mockedList.length,
           itemBuilder: (context, index) {
-            final challange = mockedList[index];
-
-            return ListTile(
-                title: Text(challange.challanger.name),
-                subtitle: Text(challange.challanger.surname));
+            final challenge = mockedList[index];
+            return GestureDetector(
+              onTap: () {
+                switch (challenge.status) {
+                  case "done":
+                    Navigator.pushNamed(context, "/bet-details",
+                        arguments: challenge);
+                    break;
+                  case "pending":
+                    Navigator.pushNamed(context, "/challenge",
+                        arguments: challenge);
+                    break;
+                  case "accepted":
+                    Navigator.pushNamed(context, "/new-bet",
+                        arguments: challenge);
+                    break;
+                }
+              },
+              child: Hero(
+                tag: "challenge${challenge.id}",
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(challenge.challenger.name),
+                            Text(challenge.challenger.surname),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(challenge.opponent.name),
+                            Text(challenge.opponent.surname),
+                          ],
+                        ),
+                        Text(challenge.status)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
           },
         ),
       ),

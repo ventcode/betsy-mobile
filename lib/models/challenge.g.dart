@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'challange.dart';
+part of 'challenge.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Challange _$ChallangeFromJson(Map<String, dynamic> json) => Challange(
-      challanger: User.fromJson(json['challanger'] as Map<String, dynamic>),
+Challenge _$ChallengeFromJson(Map<String, dynamic> json) => Challenge(
+      id: json['id'] as String,
+      challenger: User.fromJson(json['challenger'] as Map<String, dynamic>),
       opponent: User.fromJson(json['opponent'] as Map<String, dynamic>),
       date: json['date'] as String,
       status: json['status'] as String,
@@ -15,11 +16,12 @@ Challange _$ChallangeFromJson(Map<String, dynamic> json) => Challange(
       description: json['description'] as String,
     );
 
-Map<String, dynamic> _$ChallangeToJson(Challange instance) => <String, dynamic>{
-      'challanger': instance.challanger,
+Map<String, dynamic> _$ChallengeToJson(Challenge instance) => <String, dynamic>{
+      'challenger': instance.challenger,
       'opponent': instance.opponent,
       'value': instance.value,
       'date': instance.date,
       'status': instance.status,
       'description': instance.description,
+      'id': instance.id,
     };

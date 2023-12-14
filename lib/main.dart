@@ -1,5 +1,8 @@
 import 'package:betsy_mobile/screens/auth_screen.dart';
+import 'package:betsy_mobile/screens/bet_details_screen.dart';
+import 'package:betsy_mobile/screens/challenge_screen.dart';
 import 'package:betsy_mobile/screens/dashboard_screen.dart';
+import 'package:betsy_mobile/screens/new_bet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:betsy_mobile/theme/theme.dart';
@@ -25,16 +28,15 @@ class MyApp extends ConsumerWidget {
       title: 'Betsy',
       theme: lightTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/dasboard',
+      initialRoute: '/dashboard',
       routes: {
         '/auth': (context) => const AuthScreen(),
-        '/dasboard': (context) => const DashboardScreen(),
-        '/new-bet': (context) => const AuthScreen(),
-        '/bet-details': (context) => const AuthScreen(),
-        '/challenge': (context) => const AuthScreen(),
-        '/summary': (context) => const AuthScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
+        '/new-bet': (context) => const NewBetScreen(),
+        '/bet-details': (context) => const BetDetailsScreen(),
+        '/challenge': (context) => const ChallengeScreen(),
+        '/summary': (context) => const AuthScreen()
       },
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
