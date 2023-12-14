@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "382987600618",
+    "project_id": "betsy-91be9",
+    "storage_bucket": "betsy-91be9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382987600618:android:f95a2a1e9c1690e4cf4d93",
+        "android_client_info": {
+          "package_name": "com.example.betsy_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXszoESKTS9r8ZpugUgEKhNi8vxMflapY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

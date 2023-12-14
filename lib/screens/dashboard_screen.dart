@@ -1,6 +1,8 @@
 import 'package:betsy_mobile/models/challenge.dart';
 import 'package:betsy_mobile/models/user.dart';
+import 'package:betsy_mobile/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final mockedListOfChallenges = [
   {
@@ -75,8 +77,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           description: listElement["status"]))
       .toList();
 
+  DashboardScreen({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),

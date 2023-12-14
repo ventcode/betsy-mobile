@@ -1,19 +1,45 @@
-import 'dart:convert';
-import 'package:betsy_mobile/models/auth_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 // Necessary for code-generation to work
 part 'auth_provider.g.dart';
 
+
+const List<String> scopes = <String>[
+  'email',
+  'profile',
+];
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: 'your-client_id.apps.googleusercontent.com',
+  scopes: scopes,
+);
+
+
 /// This will create a provider named `activityProvider` (like React global context)
 /// which will cache the result of this function.
 @riverpod
-Future<Auth> auth(AuthRef ref) async {
-  // Using package:http, we fetch a random activity from the Bored API.
-  final response = await http.get(Uri.https('boredapi.com', '/api/activity'));
-  // Using dart:convert, we then decode the JSON payload into a Map data structure.
-  final json = jsonDecode(response.body) as Map<String, dynamic>;
-  // Finally, we convert the Map into an Activity instance.
-  return Auth.fromJson(json);
+class AsyncCurrentUser extends _$AsyncCurrentUser {
+  @override
+  GoogleSignInAccount? build() {
+    _googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount? account) async {
+      state = account;
+    });
+    _googleSignIn.signInSilently();
+    return null;
+  }
+
+  Future<void> signIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void signOut() {
+    state = null;
+  }
 }
