@@ -1,23 +1,7 @@
 import 'package:betsy_mobile/providers/auth_provider.dart';
-import 'package:betsy_mobile/screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'components/sign_in_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: 'your-client_id.apps.googleusercontent.com',
-  scopes: scopes,
-);
-
-Future<void> _handleSignIn() async {
-  try {
-    await _googleSignIn.signIn();
-  } catch (error) {
-    print(error);
-  }
-}
 
 class AuthScreen extends ConsumerWidget {
   const AuthScreen({super.key});
@@ -31,7 +15,8 @@ class AuthScreen extends ConsumerWidget {
       if (data != null) {
         Future.delayed(Duration.zero, () {
           Navigator.pushReplacementNamed(context, '/dashboard');
-        });      }
+        });
+      }
     });
 
     return Scaffold(
