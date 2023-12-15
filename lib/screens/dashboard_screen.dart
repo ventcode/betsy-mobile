@@ -88,63 +88,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
         scrolledUnderElevation: 0.4,
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label: const Text("New bet!"),
+        label: const Text("Challenge!"),
         icon: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, "/new-challenge");
         },
       ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: mockedList.length,
-          itemBuilder: (context, index) {
-            final challenge = mockedList[index];
-            return GestureDetector(
-              onTap: () {
-                switch (challenge.status) {
-                  case "done":
-                    Navigator.pushNamed(context, "/bet-details",
-                        arguments: challenge);
-                    break;
-                  case "pending":
-                    Navigator.pushNamed(context, "/challenge",
-                        arguments: challenge);
-                    break;
-                  case "accepted":
-                    Navigator.pushNamed(context, "/new-bet",
-                        arguments: challenge);
-                    break;
-                }
-              },
-              child: Hero(
-                tag: "challenge${challenge.id}",
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            Text(challenge.challenger.name),
-                            Text(challenge.challenger.surname),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(challenge.opponent.name),
-                            Text(challenge.opponent.surname),
-                          ],
-                        ),
-                        Text(challenge.status)
-                      ],
+      body: Column(children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: mockedList.length,
+            itemBuilder: (context, index) {
+              final challenge = mockedList[index];
+              return GestureDetector(
+                onTap: () {
+                  switch (challenge.status) {
+                    case "done":
+                      Navigator.pushNamed(context, "/bet-details",
+                          arguments: challenge);
+                      break;
+                    case "pending":
+                      Navigator.pushNamed(context, "/challenge",
+                          arguments: challenge);
+                      break;
+                    case "accepted":
+                      Navigator.pushNamed(context, "/new-bet",
+                          arguments: challenge);
+                      break;
+                  }
+                },
+                child: Hero(
+                  tag: "challenge${challenge.id}",
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              Text(challenge.challenger.name),
+                              Text(challenge.challenger.surname),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(challenge.opponent.name),
+                              Text(challenge.opponent.surname),
+                            ],
+                          ),
+                          Text(challenge.status)
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
-      ),
+      ]),
     );
   }
 }

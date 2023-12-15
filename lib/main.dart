@@ -34,7 +34,7 @@ class MyApp extends ConsumerWidget {
         '/dashboard': (context) => const DashboardScreen(),
         '/new-bet': (context) => const NewBetScreen(),
         '/bet-details': (context) => const BetDetailsScreen(),
-        '/challenge': (context) => const ChallengeScreen(),
+        '/new-challenge': (context) => const ChallengeScreen(),
         '/summary': (context) => const AuthScreen()
       },
     );
