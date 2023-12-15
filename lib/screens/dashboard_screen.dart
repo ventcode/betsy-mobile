@@ -8,7 +8,7 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final challengesList = ref.watch(challengesProvider);
+    final challengesList = ref.watch(challengesNotifierProvider);
 
     // return switch (challengesList) {
     //   AsyncData(:final value) => Text('value: ${value[0].id}'),

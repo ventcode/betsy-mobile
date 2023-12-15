@@ -40,6 +40,11 @@ class BetDetailsScreen extends ConsumerWidget {
                       Text(value.opponent.id.toString()),
                     ],
                   ),
+                  Column(
+                    children: [
+                      Text(value.title),
+                    ],
+                  ),
                 ],
               )),
             ),

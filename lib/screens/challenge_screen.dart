@@ -1,7 +1,10 @@
+import 'package:betsy_mobile/models/new_challenge.dart';
 import 'package:betsy_mobile/models/user.dart';
 import 'package:betsy_mobile/providers/users_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../providers/challenges_provider.dart';
 
 class ChallengeScreen extends ConsumerStatefulWidget {
   const ChallengeScreen({super.key});
@@ -11,8 +14,8 @@ class ChallengeScreen extends ConsumerStatefulWidget {
 }
 
 class ChallengeScreenState extends ConsumerState<ChallengeScreen> {
-  final TextEditingController colorController = TextEditingController();
-  final TextEditingController iconController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
   User? selectedChallenger;
 
   final _formKey = GlobalKey<FormState>();
@@ -67,6 +70,7 @@ class ChallengeScreenState extends ConsumerState<ChallengeScreen> {
                               }
                               return null;
                             },
+                            controller: titleController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Challenge Subject',
@@ -77,6 +81,7 @@ class ChallengeScreenState extends ConsumerState<ChallengeScreen> {
                           ),
                           TextFormField(
                             keyboardType: TextInputType.number,
+                            controller: amountController,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Bet amount',
@@ -90,10 +95,14 @@ class ChallengeScreenState extends ConsumerState<ChallengeScreen> {
                           if (_formKey.currentState!.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
+                            if (selectedChallenger?.id == null) return;
+                            ref
+                                .read(challengesNotifierProvider.notifier)
+                                .addChallenge(NewChallenge(
+                                    amount: int.parse(amountController.text),
+                                    title: titleController.text,
+                                    challengedId: selectedChallenger!.id,
+                                    challengerId: 1));
                           }
                         },
                         child: const Text('Submit'),
