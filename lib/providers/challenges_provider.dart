@@ -29,12 +29,10 @@ class ChallengesNotifier extends _$ChallengesNotifier {
     final uri = Uri.parse('http://10.0.2.2:8080/challenges');
 
     auth.state.whenData((value) async {
-        final authCode = await value?.authentication;
-        final response = await http.post(uri, headers: {
-          HttpHeaders.authorizationHeader: '${authCode?.accessToken}',
-        }
-    })
-
+      final authCode = await value?.authentication;
+      final response = await http.post(uri, headers: {
+        HttpHeaders.authorizationHeader: '${authCode?.accessToken}',
+      });
     });
   }
 }
