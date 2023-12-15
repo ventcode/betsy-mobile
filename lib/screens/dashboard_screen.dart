@@ -77,10 +77,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           description: listElement["status"]))
       .toList();
 
-  DashboardScreen({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
