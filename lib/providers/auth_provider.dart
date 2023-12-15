@@ -30,7 +30,7 @@ class AsyncCurrentUser extends _$AsyncCurrentUser {
       final authCode = await account?.authentication;
 
       await http.get(Uri.parse('http://10.0.2.2:8080/user'), headers: {
-        HttpHeaders.authorizationHeader: 'Bearer ${authCode?.accessToken}',
+        HttpHeaders.authorizationHeader: '${authCode?.accessToken}',
       });
     });
 
