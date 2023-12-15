@@ -1,50 +1,53 @@
-import 'package:betsy_mobile/models/challenge.dart';
+import 'package:betsy_mobile/providers/challenge_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BetDetailsScreen extends StatelessWidget {
+class BetDetailsScreenArguments {
+  int id;
+
+  BetDetailsScreenArguments(this.id);
+}
+
+class BetDetailsScreen extends ConsumerWidget {
   const BetDetailsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final challenge = ModalRoute.of(context)!.settings.arguments as Challenge;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as BetDetailsScreenArguments;
+    final challenge = ref.watch(challengeProvider(arguments.id));
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Bet details"),
-        actions: <Widget>[
-          IconButton(onPressed: () {}, icon: const Icon(Icons.emoji_people))
-        ],
-      ),
-      body: Card(
-          child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        appBar: AppBar(
+          title: const Text("Bet details"),
+          actions: <Widget>[
+            IconButton(onPressed: () {}, icon: const Icon(Icons.emoji_people))
+          ],
+        ),
+        body: switch (challenge) {
+          AsyncData(:final value) => Hero(
+              tag: "challenge${value.id}",
+              child: Card(
+                  child: Row(
                 children: [
-                  Text(challenge.challenger.id.toString()),
-                  const Text(
-                    "challenger",
-                    style: TextStyle(fontSize: 14),
+                  Column(
+                    children: [
+                      Text(value.challenger.id.toString()),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(value.opponent.id.toString()),
+                    ],
                   ),
                 ],
-              ),
-              const Text("VS"),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(challenge.opponent.id.toString()),
-                  const Text("opponent", style: TextStyle(fontSize: 14)),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 30),
-        ]),
-      )),
-    );
+              )),
+            ),
+          // TODO: Handle this case.
+          AsyncError(:final error) => Text('no wyjebao sie, $error'),
+          AsyncLoading() =>
+            const CircularProgressIndicator(color: Colors.amber),
+          _ => null
+        });
   }
 }

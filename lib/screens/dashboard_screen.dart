@@ -1,4 +1,5 @@
 import 'package:betsy_mobile/providers/challenges_provider.dart';
+import 'package:betsy_mobile/screens/bet_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,7 +45,8 @@ class DashboardScreen extends ConsumerWidget {
                       switch (challenge.status) {
                         case 0:
                           Navigator.pushNamed(context, "/bet-details",
-                              arguments: challenge);
+                              arguments:
+                                  BetDetailsScreenArguments(challenge.id));
                           break;
                         case 1:
                           if ("I_AM_CHALLANGED" == "I_AM_CHALLANGED") {
