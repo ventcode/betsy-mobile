@@ -1,8 +1,16 @@
 import 'package:betsy_mobile/models/challenge.dart';
 import 'package:flutter/material.dart';
 
-class BetDetailsScreen extends StatelessWidget {
-  const BetDetailsScreen({super.key});
+class ChallengeProposalScreen extends StatefulWidget {
+  const ChallengeProposalScreen({super.key});
+
+  @override
+  State<ChallengeProposalScreen> createState() =>
+      _ChallengeProposalScreenState();
+}
+
+class _ChallengeProposalScreenState extends State<ChallengeProposalScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +18,7 @@ class BetDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bet details"),
+        title: const Text("New fresh bet!"),
         actions: <Widget>[
           IconButton(onPressed: () {}, icon: const Icon(Icons.emoji_people))
         ],
@@ -19,6 +27,13 @@ class BetDetailsScreen extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(children: [
+          const Text(
+            "You have been challenged!",
+            style: TextStyle(fontSize: 22),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,6 +58,14 @@ class BetDetailsScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Accepted')),
+              );
+            },
+            child: const Text('Accept the challenge'),
+          ),
         ]),
       )),
     );

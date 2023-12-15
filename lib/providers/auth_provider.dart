@@ -26,6 +26,7 @@ class AsyncCurrentUser extends _$AsyncCurrentUser {
   FutureOr<GoogleSignInAccount?> build() async {
     _googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount? account) async {
+      // _googleSignIn.signOut();
       state = AsyncValue.data(account);
       final authCode = await account?.authentication;
 

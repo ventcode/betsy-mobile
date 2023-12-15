@@ -1,5 +1,6 @@
 import 'package:betsy_mobile/screens/auth_screen.dart';
 import 'package:betsy_mobile/screens/bet_details_screen.dart';
+import 'package:betsy_mobile/screens/challenge_proposal_screen.dart';
 import 'package:betsy_mobile/screens/challenge_screen.dart';
 import 'package:betsy_mobile/screens/dashboard_screen.dart';
 import 'package:betsy_mobile/screens/new_bet_screen.dart';
@@ -43,6 +44,7 @@ class MyApp extends ConsumerWidget {
         '/new-bet': (context) => const NewBetScreen(),
         '/bet-details': (context) => const BetDetailsScreen(),
         '/new-challenge': (context) => const ChallengeScreen(),
+        '/challenge-proposal': (context) => const ChallengeProposalScreen(),
         '/summary': (context) => const AuthScreen()
       },
     );

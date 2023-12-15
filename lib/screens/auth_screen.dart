@@ -29,8 +29,9 @@ class AuthScreen extends ConsumerWidget {
 
     futureUser.whenData((data) {
       if (data != null) {
-        Navigator.pushNamed(context, '/dashboard');
-      }
+        Future.delayed(Duration.zero, () {
+          Navigator.pushReplacementNamed(context, '/dashboard');
+        });      }
     });
 
     return Scaffold(

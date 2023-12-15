@@ -17,8 +17,30 @@ final ThemeData lightTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-    bodyLarge: TextStyle(fontSize: 18, color: Color(0x292c36FF)),
-    titleSmall: TextStyle(fontSize: 18, color: Colors.black87),
+    bodyLarge: TextStyle(fontSize: 24, color: Color(0x292c36FF)),
+    titleSmall: TextStyle(fontSize: 24, color: Colors.black87),
+    bodyMedium: TextStyle(fontSize: 16, color: Colors.black87),
+    bodySmall: TextStyle(fontSize: 14, color: Colors.black87),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    fillColor: Colors.black,
+    focusColor: Colors.black,
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xff162956)),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xff162956), width: 2),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0xff162956)),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide:
+          BorderSide(color: Colors.redAccent),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.red, width: 2),
+    ),
   ),
   appBarTheme: const AppBarTheme(
     color: Colors.white, // This is background on app header

@@ -7,21 +7,27 @@ part of 'challenge.dart';
 // **************************************************************************
 
 Challenge _$ChallengeFromJson(Map<String, dynamic> json) => Challenge(
-      id: json['id'] as String,
+      id: json['id'] as int,
       challenger: User.fromJson(json['challenger'] as Map<String, dynamic>),
-      opponent: User.fromJson(json['opponent'] as Map<String, dynamic>),
-      date: json['date'] as String,
-      status: json['status'] as String,
-      value: json['value'] as String,
-      description: json['description'] as String,
+      opponent: User.fromJson(json['challenged'] as Map<String, dynamic>),
+      status: json['status'] as int,
+      title: json['title'] as String,
+      challengerWon: json['challenger_won'] as bool?,
+      amount: json['amount'] as int,
+      updatedAt: json['updated_at'] as String,
+      createdAt: json['created_at'] as String,
+      deletedAt: json['deleted_at'] as String?,
     );
 
 Map<String, dynamic> _$ChallengeToJson(Challenge instance) => <String, dynamic>{
       'challenger': instance.challenger,
-      'opponent': instance.opponent,
-      'value': instance.value,
-      'date': instance.date,
-      'status': instance.status,
-      'description': instance.description,
+      'challenged': instance.opponent,
+      'title': instance.title,
       'id': instance.id,
+      'amount': instance.amount,
+      'status': instance.status,
+      'challenger_won': instance.challengerWon,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
+      'deleted_at': instance.deletedAt,
     };
