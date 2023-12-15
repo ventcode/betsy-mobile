@@ -1,19 +1,56 @@
-import 'dart:convert';
-import 'package:betsy_mobile/models/auth_model.dart';
-import 'package:http/http.dart' as http;
+import 'dart:io';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
 
 // Necessary for code-generation to work
 part 'auth_provider.g.dart';
 
-/// This will create a provider named `activityProvider` (like React global context)
+const List<String> scopes = <String>[
+  'email',
+  'profile',
+];
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: 'your-client_id.apps.googleusercontent.com',
+  scopes: scopes,
+);
+
+/// This will create a provider named `authProvider` (like React global context)
 /// which will cache the result of this function.
 @riverpod
-Future<Auth> auth(AuthRef ref) async {
-  // Using package:http, we fetch a random activity from the Bored API.
-  final response = await http.get(Uri.https('boredapi.com', '/api/activity'));
-  // Using dart:convert, we then decode the JSON payload into a Map data structure.
-  final json = jsonDecode(response.body) as Map<String, dynamic>;
-  // Finally, we convert the Map into an Activity instance.
-  return Auth.fromJson(json);
+class AsyncCurrentUser extends _$AsyncCurrentUser {
+  @override
+  FutureOr<GoogleSignInAccount?> build() async {
+    _googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount? account) async {
+      state = AsyncValue.data(account);
+      final authCode = await account?.authentication;
+
+      await http.get(Uri.parse('http://10.0.2.2:8080/user'), headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ${authCode?.accessToken}',
+      });
+    });
+
+    await _googleSignIn.signInSilently();
+    return null;
+  }
+
+  Future<void> signIn() async {
+    await AsyncValue.guard(() async {
+      await _googleSignIn.signIn();
+
+      _googleSignIn.signInSilently();
+      return;
+    });
+  }
+
+  void signOut() async {
+    await AsyncValue.guard(() async {
+      await _googleSignIn.signOut();
+      state = const AsyncValue.data(null);
+    });
+  }
 }

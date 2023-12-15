@@ -1,6 +1,8 @@
 import 'package:betsy_mobile/models/challenge.dart';
 import 'package:betsy_mobile/models/user.dart';
+import 'package:betsy_mobile/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final mockedListOfChallenges = [
   {
