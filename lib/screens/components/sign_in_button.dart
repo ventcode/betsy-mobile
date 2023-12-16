@@ -12,10 +12,16 @@ typedef HandleSignInFn = Future<void> Function();
 Widget buildSignInButton({HandleSignInFn? onPressed}) {
   return ElevatedButton(
     onPressed: onPressed,
-    child: const Text('SIGN IN'),
+    // TODO: Move these styles into theme
+    style: ElevatedButton.styleFrom(
+      minimumSize: const Size.fromHeight(50), // NEW
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      backgroundColor: const Color(0xff162956),
+    ),
+    child: const Text(
+      'SIGN IN',
+      style: TextStyle(color: Colors.white),
+    ),
   );
 }
-
-
-
-

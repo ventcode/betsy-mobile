@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -48,10 +49,12 @@ class AsyncCurrentUser extends _$AsyncCurrentUser {
     });
   }
 
-  void signOut() async {
+  // TODO: check if this can be done without context
+  void signOut(context) async {
     await AsyncValue.guard(() async {
       await _googleSignIn.signOut();
       state = const AsyncValue.data(null);
+      Navigator.pushReplacementNamed(context, '/auth');
     });
   }
 }

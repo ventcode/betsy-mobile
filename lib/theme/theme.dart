@@ -13,8 +13,13 @@ final ThemeData lightTheme = ThemeData(
     background: Color(0xFFFAFAFA),
     onBackground: Colors.white,
     surface: Colors.white, // This is Cards etc colors
-    onSurface: Colors.black, // This is text color
+    onSurface: Colors.black, // This is mostly text color
   ),
+  cardTheme: const CardTheme(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      color: Colors.white),
+  scaffoldBackgroundColor: const Color.fromARGB(215, 255, 255, 255),
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
     bodyLarge: TextStyle(fontSize: 24, color: Color(0x292c36FF)),
@@ -35,8 +40,7 @@ final ThemeData lightTheme = ThemeData(
       borderSide: BorderSide(color: Color(0xff162956)),
     ),
     errorBorder: OutlineInputBorder(
-      borderSide:
-          BorderSide(color: Colors.redAccent),
+      borderSide: BorderSide(color: Colors.redAccent),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.red, width: 2),

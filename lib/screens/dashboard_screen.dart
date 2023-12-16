@@ -1,3 +1,4 @@
+import 'package:betsy_mobile/providers/auth_provider.dart';
 import 'package:betsy_mobile/providers/challenges_provider.dart';
 import 'package:betsy_mobile/screens/bet_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final challengesList = ref.watch(challengesNotifierProvider);
+    final authActions = ref.read(asyncCurrentUserProvider.notifier);
 
     // return switch (challengesList) {
     //   AsyncData(:final value) => Text('value: ${value[0].id}'),
@@ -20,7 +22,9 @@ class DashboardScreen extends ConsumerWidget {
         appBar: AppBar(
           title: const Text("Dashboard"),
           actions: <Widget>[
-            IconButton(onPressed: () {}, icon: const Icon(Icons.emoji_people))
+            IconButton(
+                onPressed: () => authActions.signOut(context),
+                icon: const Icon(Icons.logout))
           ],
           bottomOpacity: 0.5,
           elevation: 6.0,
@@ -55,6 +59,14 @@ class DashboardScreen extends ConsumerWidget {
                           }
                           break;
                         case 2:
+                          Navigator.pushNamed(context, "/new-bet",
+                              arguments: challenge);
+                          break;
+                        case 3:
+                          Navigator.pushNamed(context, "/new-bet",
+                              arguments: challenge);
+                          break;
+                        case 4:
                           Navigator.pushNamed(context, "/new-bet",
                               arguments: challenge);
                           break;

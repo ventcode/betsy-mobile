@@ -25,18 +25,37 @@ class AuthScreen extends ConsumerWidget {
             if (user != null) {
               return Container();
             } else {
-              return Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  const Text('You are not currently signed in.'),
-                  // This method is used to separate mobile from web code with conditional exports.
-                  // See: src/sign_in_button.dart
-                  buildSignInButton(
-                    onPressed: () => currentUser.signIn(),
-                  ),
-                ],
-              ));
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const SizedBox(),
+                    const Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Betsy",
+                              style: TextStyle(
+                                  fontSize: 32, fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(height: 42),
+                            Text(
+                                "Log in to participate in challenges and place bets on your teammates!",
+                                textAlign: TextAlign.center),
+                          ],
+                        ),
+                      ),
+                    ),
+                    buildSignInButton(
+                      onPressed: () => currentUser.signIn(),
+                    ),
+                  ],
+                )),
+              );
             }
           },
           error: (_, _1) => Column(

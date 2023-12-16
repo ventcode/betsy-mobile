@@ -4,6 +4,7 @@ import 'package:betsy_mobile/screens/challenge_proposal_screen.dart';
 import 'package:betsy_mobile/screens/challenge_screen.dart';
 import 'package:betsy_mobile/screens/dashboard_screen.dart';
 import 'package:betsy_mobile/screens/new_bet_screen.dart';
+import 'package:betsy_mobile/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +39,7 @@ class MyApp extends ConsumerWidget {
       title: 'Betsy',
       debugShowCheckedModeBanner: false,
       initialRoute: '/auth',
+      theme: lightTheme,
       routes: {
         '/auth': (context) => const AuthScreen(),
         '/dashboard': (context) => const DashboardScreen(),

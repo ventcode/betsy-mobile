@@ -2,8 +2,6 @@ import 'package:betsy_mobile/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'challenge.g.dart';
-
-enum ChallangeStatus { pending, done, accepted }
 // 0: new, 1: accepted, 2: started, 3: finished, 4: rejected
 
 @JsonSerializable()
@@ -12,7 +10,8 @@ class Challenge {
   @JsonKey(name: 'challenged')
   final User opponent;
   final String title;
-  final int id, amount, status;
+  final int id, amount;
+  final int status; // TODO: Make this an enum
   @JsonKey(name: 'challenger_won')
   final bool? challengerWon;
   @JsonKey(name: 'created_at')
