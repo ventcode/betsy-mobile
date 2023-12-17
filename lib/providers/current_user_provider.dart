@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Necessary for code-generation to work
-part 'auth_provider.g.dart';
+part 'current_user_provider.g.dart';
 
 const List<String> scopes = <String>[
   'email',
@@ -19,21 +16,13 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: scopes,
 );
 
-/// This will create a provider named `authProvider` (like React global context)
-/// which will cache the result of this function.
 @riverpod
 class AsyncCurrentUser extends _$AsyncCurrentUser {
   @override
   FutureOr<GoogleSignInAccount?> build() async {
     _googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount? account) async {
-      // _googleSignIn.signOut();
       state = AsyncValue.data(account);
-      final authCode = await account?.authentication;
-
-      await http.get(Uri.parse('http://10.0.2.2:8080/user'), headers: {
-        HttpHeaders.authorizationHeader: '${authCode?.accessToken}',
-      });
     });
 
     await _googleSignIn.signInSilently();

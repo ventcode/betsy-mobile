@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_provider.dart';
+part of 'current_user_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$asyncCurrentUserHash() => r'd3bfe35c21040bbe31653845c34d3fe96c490ab3';
+String _$asyncCurrentUserHash() => r'23c9b606b9f7cd6030f1c155dd68968ffcf89699';
 
 /// This will create a provider named `authProvider` (like React global context)
 /// which will cache the result of this function.

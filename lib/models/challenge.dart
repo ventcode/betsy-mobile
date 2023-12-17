@@ -33,10 +33,10 @@ class Challenge {
       required this.createdAt,
       this.deletedAt});
 
+  get canBeAccepted => status == 0;
+
   factory Challenge.fromJson(Map<String, dynamic> json) =>
       _$ChallengeFromJson(json);
 
   Map<String, dynamic> toJson() => _$ChallengeToJson(this);
-
-  map(Challenge Function(dynamic listElement) param0) {}
 }

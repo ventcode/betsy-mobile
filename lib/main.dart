@@ -1,13 +1,12 @@
 import 'package:betsy_mobile/screens/auth_screen.dart';
 import 'package:betsy_mobile/screens/bet_details_screen.dart';
-import 'package:betsy_mobile/screens/challenge_proposal_screen.dart';
 import 'package:betsy_mobile/screens/challenge_screen.dart';
 import 'package:betsy_mobile/screens/dashboard_screen.dart';
-import 'package:betsy_mobile/screens/new_bet_screen.dart';
 import 'package:betsy_mobile/theme/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -43,10 +42,8 @@ class MyApp extends ConsumerWidget {
       routes: {
         '/auth': (context) => const AuthScreen(),
         '/dashboard': (context) => const DashboardScreen(),
-        '/new-bet': (context) => const NewBetScreen(),
         '/bet-details': (context) => const BetDetailsScreen(),
         '/new-challenge': (context) => const ChallengeScreen(),
-        '/challenge-proposal': (context) => const ChallengeProposalScreen(),
         '/summary': (context) => const AuthScreen()
       },
     );

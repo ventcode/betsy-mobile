@@ -1,5 +1,6 @@
 import 'package:betsy_mobile/models/new_challenge.dart';
 import 'package:betsy_mobile/models/user.dart';
+import 'package:betsy_mobile/providers/current_api_user_provider.dart';
 import 'package:betsy_mobile/providers/users_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,7 @@ class ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   @override
   Widget build(BuildContext context) {
     final users = ref.watch(usersProvider);
+    final currentAPIUser = ref.watch(currentAPIUserProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -102,7 +104,7 @@ class ChallengeScreenState extends ConsumerState<ChallengeScreen> {
                                     amount: int.parse(amountController.text),
                                     title: titleController.text,
                                     challengedId: selectedChallenger!.id,
-                                    challengerId: 1));
+                                    challengerId: currentAPIUser.value!.id));
                           }
                         },
                         child: const Text('Submit'),

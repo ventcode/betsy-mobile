@@ -1,7 +1,8 @@
-import 'package:betsy_mobile/providers/auth_provider.dart';
+import 'package:betsy_mobile/providers/current_user_provider.dart';
 import 'package:flutter/material.dart';
-import 'components/sign_in_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'components/sign_in_button.dart';
 
 class AuthScreen extends ConsumerWidget {
   const AuthScreen({super.key});

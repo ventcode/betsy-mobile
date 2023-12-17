@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:betsy_mobile/models/challenge.dart';
 import 'package:betsy_mobile/models/new_challenge.dart';
-import 'package:betsy_mobile/providers/auth_provider.dart';
+import 'package:betsy_mobile/providers/challenge_provider.dart';
+import 'package:betsy_mobile/providers/current_user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,41 +32,30 @@ class ChallengesNotifier extends _$ChallengesNotifier {
 
     final data = auth.state.asData;
     final authCode = await data?.value?.authentication;
-    final response = await http.post(uri,
+    await http.post(uri,
         headers: {
           HttpHeaders.authorizationHeader: '${authCode?.accessToken}',
           HttpHeaders.contentTypeHeader: 'application/json'
         },
         body: jsonEncode(newChallenge.toJson()));
 
-    final json = jsonDecode(response.body);
-
-    final old = await future;
-
-    final newChallenges = [...old, Challenge.fromJson(json)];
-
-    state = AsyncData(newChallenges);
+    ref.invalidateSelf();
   }
 
-  Future<void> acceptChallenge(Challenge challenge) {
+  Future<void> acceptChallenge(Challenge challenge) async {
     final auth = ref.read(asyncCurrentUserProvider.notifier);
-    final uri = Uri.parse('http://10.0.2.2:8080/challenges');
+    final uri = Uri.parse('http://10.0.2.2:8080/challenges/${challenge.id}');
 
     final data = auth.state.asData;
     final authCode = await data?.value?.authentication;
-    final response = await http.patch(uri,
+    await http.patch(uri,
         headers: {
           HttpHeaders.authorizationHeader: '${authCode?.accessToken}',
           HttpHeaders.contentTypeHeader: 'application/json'
         },
-        body: jsonEncode(newChallenge.toJson()));
+        body: jsonEncode({"status": 1}));
 
-    final json = jsonDecode(response.body);
-
-    final old = await future;
-
-    final newChallenges = [...old, Challenge.fromJson(json)];
-
-    state = AsyncData(newChallenges);
+    ref.invalidateSelf();
+    ref.invalidate(challengeProvider(challenge.id));
   }
 }

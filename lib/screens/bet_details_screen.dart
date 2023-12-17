@@ -1,4 +1,9 @@
 import 'package:betsy_mobile/providers/challenge_provider.dart';
+import 'package:betsy_mobile/providers/current_api_user_provider.dart';
+import 'package:betsy_mobile/widgets/bet_form.dart';
+import 'package:betsy_mobile/widgets/challenge_proposal.dart';
+import 'package:betsy_mobile/widgets/challenge_status.dart';
+import 'package:betsy_mobile/widgets/user_small.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,6 +21,7 @@ class BetDetailsScreen extends ConsumerWidget {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as BetDetailsScreenArguments;
     final challenge = ref.watch(challengeProvider(arguments.id));
+    final currentAPIUser = ref.watch(currentAPIUserProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -25,29 +31,55 @@ class BetDetailsScreen extends ConsumerWidget {
           ],
         ),
         body: switch (challenge) {
-          AsyncData(:final value) => Hero(
-              tag: "challenge${value.id}",
-              child: Card(
-                  child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Text(value.challenger.id.toString()),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(value.opponent.id.toString()),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(value.title),
-                    ],
-                  ),
-                ],
-              )),
-            ),
+          AsyncData(:final value) => Card(
+                child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LimitedBox(
+                        maxWidth: 100,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            UserSmall(user: value.challenger),
+                            const Text(
+                              "Challenger",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        )),
+                    Column(
+                      children: [
+                        const Text("VS"),
+                        ChallengeStatus(challenge: value),
+                      ],
+                    ),
+                    LimitedBox(
+                      maxWidth: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          UserSmall(user: value.opponent),
+                          const Text(
+                            "Opponent",
+                            style: TextStyle(fontSize: 14),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 30),
+                currentAPIUser.requireValue.canBetOn(value)
+                    ? BetForm(challenge: value)
+                    : const SizedBox.shrink(),
+                currentAPIUser.requireValue.canAccept(value)
+                    ? ChallengeProposal(challenge: value)
+                    : const SizedBox.shrink(),
+              ]),
+            )),
           // TODO: Handle this case.
           AsyncError(:final error) => Text('no wyjebao sie, $error'),
           AsyncLoading() =>
