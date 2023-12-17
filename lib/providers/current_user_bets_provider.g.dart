@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'current_user_provider.dart';
+part of 'current_user_bets_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$asyncCurrentUserHash() => r'448ac1bce27161274be7cf47050e102c630e3e9c';
+String _$currentUserBetsHash() => r'ad2e8388257584ead67b87c7a03337a5951691ed';
 
-/// See also [AsyncCurrentUser].
-@ProviderFor(AsyncCurrentUser)
-final asyncCurrentUserProvider = AutoDisposeAsyncNotifierProvider<
-    AsyncCurrentUser, GoogleSignInAccount?>.internal(
-  AsyncCurrentUser.new,
-  name: r'asyncCurrentUserProvider',
+/// See also [currentUserBets].
+@ProviderFor(currentUserBets)
+final currentUserBetsProvider = AutoDisposeFutureProvider<List<Bet>>.internal(
+  currentUserBets,
+  name: r'currentUserBetsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$asyncCurrentUserHash,
+      : _$currentUserBetsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AsyncCurrentUser = AutoDisposeAsyncNotifier<GoogleSignInAccount?>;
+typedef CurrentUserBetsRef = AutoDisposeFutureProviderRef<List<Bet>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

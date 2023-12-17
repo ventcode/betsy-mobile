@@ -1,9 +1,12 @@
 import 'package:betsy_mobile/providers/challenge_provider.dart';
 import 'package:betsy_mobile/providers/current_api_user_provider.dart';
+import 'package:betsy_mobile/providers/current_user_bets_provider.dart';
 import 'package:betsy_mobile/widgets/bet_form.dart';
+import 'package:betsy_mobile/widgets/challenge_bet.dart';
 import 'package:betsy_mobile/widgets/challenge_proposal.dart';
 import 'package:betsy_mobile/widgets/challenge_status.dart';
 import 'package:betsy_mobile/widgets/user_small.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +24,12 @@ class BetDetailsScreen extends ConsumerWidget {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as BetDetailsScreenArguments;
     final challenge = ref.watch(challengeProvider(arguments.id));
+    final currentUserBets = ref.watch(currentUserBetsProvider);
     final currentAPIUser = ref.watch(currentAPIUserProvider);
+    final currentUserChallengeBet =
+        currentUserBets.requireValue.firstWhereOrNull(
+      (bet) => bet.challengeId == challenge.requireValue.id,
+    );
 
     return Scaffold(
         appBar: AppBar(
@@ -72,7 +80,14 @@ class BetDetailsScreen extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 30),
-                currentAPIUser.requireValue.canBetOn(value)
+                currentUserChallengeBet != null
+                    ? ChallengeBet(
+                        bet: currentUserChallengeBet,
+                        challenge: value,
+                      )
+                    : const SizedBox.shrink(),
+                currentAPIUser.requireValue.canBetOn(value) &&
+                        currentUserChallengeBet == null
                     ? BetForm(challenge: value)
                     : const SizedBox.shrink(),
                 currentAPIUser.requireValue.canAccept(value)

@@ -1,7 +1,7 @@
 import 'package:betsy_mobile/providers/challenges_provider.dart';
 import 'package:betsy_mobile/providers/current_api_user_provider.dart';
 import 'package:betsy_mobile/providers/current_user_provider.dart';
-import 'package:betsy_mobile/screens/bet_details_screen.dart';
+import 'package:betsy_mobile/screens/challenge_details_screen.dart';
 import 'package:betsy_mobile/widgets/challenge_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

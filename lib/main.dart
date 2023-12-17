@@ -1,5 +1,8 @@
+import 'package:betsy_mobile/providers/challenges_provider.dart';
+import 'package:betsy_mobile/providers/current_api_user_provider.dart';
+import 'package:betsy_mobile/providers/current_user_bets_provider.dart';
 import 'package:betsy_mobile/screens/auth_screen.dart';
-import 'package:betsy_mobile/screens/bet_details_screen.dart';
+import 'package:betsy_mobile/screens/challenge_details_screen.dart';
 import 'package:betsy_mobile/screens/challenge_screen.dart';
 import 'package:betsy_mobile/screens/dashboard_screen.dart';
 import 'package:betsy_mobile/theme/theme.dart';
@@ -34,6 +37,10 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(currentAPIUserProvider);
+    ref.watch(currentUserBetsProvider);
+    ref.watch(challengesNotifierProvider);
+
     return MaterialApp(
       title: 'Betsy',
       debugShowCheckedModeBanner: false,
