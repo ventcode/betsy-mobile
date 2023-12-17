@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+final ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
+  foregroundColor: Colors.white,
+  backgroundColor: const Color(0xff162956), // This is used a lot; Move to palette
+  minimumSize: const Size.fromHeight(50), // This sets buttons width to 100%
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(5)),
+  ),
+);
+
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: const ColorScheme(
@@ -19,7 +28,7 @@ final ThemeData lightTheme = ThemeData(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(5))),
       color: Colors.white),
-  scaffoldBackgroundColor: const Color.fromARGB(215, 255, 255, 255),
+  scaffoldBackgroundColor: Color.fromARGB(245, 255, 255, 255),
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
     bodyLarge: TextStyle(fontSize: 24, color: Color(0x292c36FF)),
@@ -28,8 +37,9 @@ final ThemeData lightTheme = ThemeData(
     bodySmall: TextStyle(fontSize: 14, color: Colors.black87),
   ),
   inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Colors.black,
+    fillColor: Colors.white,
     focusColor: Colors.black,
+    filled: true,
     border: OutlineInputBorder(
       borderSide: BorderSide(color: Color(0xff162956)),
     ),
@@ -42,9 +52,9 @@ final ThemeData lightTheme = ThemeData(
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.redAccent),
     ),
-    focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 2),
-    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: primaryButtonStyle,
   ),
   appBarTheme: const AppBarTheme(
     color: Colors.white, // This is background on app header
