@@ -25,6 +25,7 @@ class BetDetailsScreen extends ConsumerWidget {
         ModalRoute.of(context)!.settings.arguments as BetDetailsScreenArguments;
     final challenge = ref.watch(challengeProvider(arguments.id));
 
+    // TODO: refactor, shit
     if (challenge.isLoading) return const SizedBox.shrink();
 
     final currentUserBets = ref.watch(currentUserBetsProvider);
