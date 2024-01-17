@@ -62,8 +62,8 @@ class ChallengeTile extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Column(
                               children: [
-                                Text(challenge.amount.toString()),
-                                const Text("Value"),
+                                Text("${challenge.amount} Vent\$"),
+                                const Text("Amount"),
                               ],
                             ),
                           )

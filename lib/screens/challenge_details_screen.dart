@@ -26,7 +26,9 @@ class BetDetailsScreen extends ConsumerWidget {
     final challenge = ref.watch(challengeProvider(arguments.id));
 
     // TODO: refactor, shit
-    if (challenge.isLoading) return const SizedBox.shrink();
+    if (challenge.isLoading &&
+        !challenge.isRefreshing &&
+        !challenge.isReloading) return const SizedBox.shrink();
 
     final currentUserBets = ref.watch(currentUserBetsProvider);
     final currentAPIUser = ref.watch(currentAPIUserProvider);
@@ -66,6 +68,7 @@ class BetDetailsScreen extends ConsumerWidget {
                       children: [
                         const Text("VS"),
                         ChallengeStatus(challenge: value),
+                        // Text("Total bets: ${challenge.requireValue.}")
                       ],
                     ),
                     LimitedBox(

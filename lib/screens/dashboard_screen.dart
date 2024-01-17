@@ -37,24 +37,42 @@ class DashboardScreen extends ConsumerWidget {
         body: switch (challengesList) {
           AsyncError(:final error) => Text('error: $error'),
           AsyncData(:final value) => Center(
-              child: ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    final challenge = value[index];
-                    return GestureDetector(
-                        onTap: () {
-                          switch (challenge.status) {
-                            case 0:
-                            case 1:
-                            case 2:
-                              Navigator.pushNamed(context, "/bet-details",
-                                  arguments:
-                                      BetDetailsScreenArguments(challenge.id));
-                              break;
-                          }
-                        },
-                        child: ChallengeTile(challenge: challenge));
-                  }),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Current balance",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.tertiary),
+                          ),
+                          Text(
+                            "${currentAPIUser.requireValue.moneyAmount}Vent\$",
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ],
+                      )),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: value.length,
+                        itemBuilder: (context, index) {
+                          final challenge = value[index];
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, "/bet-details",
+                                    arguments: BetDetailsScreenArguments(
+                                        challenge.id));
+                              },
+                              child: ChallengeTile(challenge: challenge));
+                        }),
+                  ),
+                ],
+              ),
             ),
           _ => const Text('loading'),
         });

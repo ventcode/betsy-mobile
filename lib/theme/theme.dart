@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 final ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
   foregroundColor: Colors.white,
-  backgroundColor: const Color(0xff162956), // This is used a lot; Move to palette
+  backgroundColor:
+      const Color(0xff162956), // This is used a lot; Move to palette
   minimumSize: const Size.fromHeight(50), // This sets buttons width to 100%
   shape: const RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -21,6 +22,7 @@ final ThemeData lightTheme = ThemeData(
     brightness: Brightness.dark,
     background: Color(0xFFFAFAFA),
     onBackground: Colors.white,
+    tertiary: Colors.grey,
     surface: Colors.white, // This is Cards etc colors
     onSurface: Colors.black, // This is mostly text color
   ),
